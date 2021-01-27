@@ -1,7 +1,7 @@
 coloradvert = {}
-coloradvert.color = Color(153, 0, 255)
-coloradvert.textcolor = Color(255, 255, 255)
-coloradvert.prefix = "[AS] "
+coloradvert.color = Color(255, 0, 191)
+coloradvert.textcolor = Color(255, 255, 0)
+coloradvert.prefix = "(Advert) "
 
 if (SERVER) then
     util.AddNetworkString("RecieveColorAdvert")
@@ -13,7 +13,7 @@ else
         local text = net.ReadString()
         if (!text) then return end
 
-        chat.AddText(coloradvert.color, coloradvert.prefix, ply:Nick(), coloradvert.textcolor, text)
+        chat.AddText(coloradvert.color, coloradvert.prefix, ply:Nick() .. ": ", coloradvert.textcolor, text)
     end)
 end
 
@@ -45,6 +45,7 @@ local function load()
                 end
                 net.Start("RecieveColorAdvert")
                 net.WriteEntity(ply)
+                net.WriteString(t)
                 net.Broadcast()
             end
             hook.Call("playerAdverted", nil, ply, args) -- bLogs support
